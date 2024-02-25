@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>com.javaspring.corejava.ödev1</OriginalElement>
+  <nodes>
+    <node x="-266.0890436347178" y="49.28554698784501">com.javaspring.corejava.ödev1.AdministrativeStaff</node>
+    <node x="-242.08904363471783" y="278.6471835028577">com.javaspring.corejava.ödev1.Rector</node>
+    <node x="91.01248394266287" y="278.6471835028577">com.javaspring.corejava.ödev1.Professor</node>
+    <node x="87.6791506093295" y="49.285546987845024">com.javaspring.corejava.ödev1.Faculty</node>
+    <node x="-79.37744870279072" y="-129.74910704662992">com.javaspring.corejava.ödev1.Staff</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="com.javaspring.corejava.ödev1.Rector" target="com.javaspring.corejava.ödev1.AdministrativeStaff" relationship="GENERALIZATION">
+      <point x="-35.738317639790154" y="-41.5" />
+      <point x="-169.25571030138448" y="278.6471835028577" />
+      <point x="-169.25571030138448" y="132.285546987845" />
+      <point x="0.0" y="41.5" />
+    </edge>
+    <edge source="com.javaspring.corejava.ödev1.Faculty" target="com.javaspring.corejava.ödev1.Staff" relationship="GENERALIZATION">
+      <point x="-86.5004839426627" y="9.059996382632107E-5" />
+      <point x="8.0" y="90.78563758780885" />
+      <point x="8.0" y="-76.24866666666662" />
+      <point x="-85.4998846305426" y="4.4037996328682993E-4" />
+    </edge>
+    <edge source="com.javaspring.corejava.ödev1.Professor" target="com.javaspring.corejava.ödev1.Faculty" relationship="GENERALIZATION">
+      <point x="7.320849390670503" y="-35.9805168361911" />
+      <point x="190.83333333333337" y="302.1666666666667" />
+      <point x="179.5124839426628" y="302.1666666666667" />
+      <point x="179.5124839426628" y="160.16666666666669" />
+      <point x="179.5" y="160.16666666666669" />
+      <point x="5.320849390670503" y="37.381119678821605" />
+    </edge>
+    <edge source="com.javaspring.corejava.ödev1.AdministrativeStaff" target="com.javaspring.corejava.ödev1.Staff" relationship="GENERALIZATION">
+      <point x="109.50037696805117" y="-2.1365451169685912E-4" />
+      <point x="8.0" y="90.78533333333331" />
+      <point x="8.0" y="-76.24866666666662" />
+      <point x="-85.4998846305426" y="4.4037996328682993E-4" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Compact" zoom="1.5" showDependencies="false" x="152.5" y="137.5" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Methods</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

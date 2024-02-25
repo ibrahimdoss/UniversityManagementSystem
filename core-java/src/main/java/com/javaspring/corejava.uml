@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>/home/ibrahim/JavaProjects/core-java/src/main/java/com/javaspring/corejava</OriginalElement>
+  <nodes>
+    <node x="-466.6128826941474" y="147.26249209224358">com.javaspring.corejava.odev1.Professor</node>
+    <node x="168.44638181670206" y="-145.15777505901514">com.javaspring.corejava.odev1.Staff</node>
+    <node x="312.49048366377247" y="90.3906048425367">com.javaspring.corejava.odev2.Manageable</node>
+    <node x="-278.46797753802895" y="256.9897322106755">com.javaspring.corejava.odev1.Faculty</node>
+    <node x="86.34588425530069" y="268.9897322106755">com.javaspring.corejava.odev1.Rector</node>
+    <node x="-473.75844420721563" y="-93.75258046023734">com.javaspring.corejava.odev2.Advisable</node>
+    <node x="-112.02413843560618" y="392.5242867988219">com.javaspring.corejava.CoreJavaApplication</node>
+    <node x="46.84588425530069" y="95.58105244816704">com.javaspring.corejava.odev1.AdministrativeStaff</node>
+    <node x="-210.6463893512556" y="9.598217299284045">com.javaspring.corejava.odev2.Teachable</node>
+    <node x="-392.55642395333183" y="9.598217299284045">com.javaspring.corejava.odev2.Researchable</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="com.javaspring.corejava.odev1.Faculty" target="com.javaspring.corejava.odev2.Teachable" relationship="REALIZATION">
+      <point x="74.5" y="14.999856024618566" />
+      <point x="-141.1463893512556" y="325.4895882352941" />
+      <point x="0.0" y="29.0" />
+    </edge>
+    <edge source="com.javaspring.corejava.odev1.Faculty" target="com.javaspring.corejava.odev1.Staff" relationship="GENERALIZATION">
+      <point x="74.50037200169677" y="-1.4397538143384736E-4" />
+      <point x="-58.107" y="310.4895882352941" />
+      <point x="-58.107" y="-4.0" />
+      <point x="237.44600000000003" y="-4.0" />
+      <point x="-3.818167020455121E-4" y="28.999636650710627" />
+    </edge>
+    <edge source="com.javaspring.corejava.odev1.Professor" target="com.javaspring.corejava.odev1.Faculty" relationship="GENERALIZATION">
+      <point x="0.0" y="41.5" />
+      <point x="-397.6128826941474" y="310.4897322106755" />
+      <point x="-74.5" y="0.0" />
+    </edge>
+    <edge source="com.javaspring.corejava.odev1.AdministrativeStaff" target="com.javaspring.corejava.odev1.Staff" relationship="GENERALIZATION">
+      <point x="-1.9023594859390869E-6" y="-28.99978230712714" />
+      <point x="158.3458823529412" y="-4.0" />
+      <point x="237.44600000000003" y="-4.0" />
+      <point x="-3.818167020455121E-4" y="28.999636650710627" />
+    </edge>
+    <edge source="com.javaspring.corejava.odev1.Faculty" target="com.javaspring.corejava.odev2.Researchable" relationship="REALIZATION">
+      <point x="-3.660521211030016" y="-53.5" />
+      <point x="-207.62849874905896" y="170.40262082994832" />
+      <point x="-310.05642395333183" y="170.40262082994832" />
+      <point x="0.0" y="29.0" />
+    </edge>
+    <edge source="com.javaspring.corejava.odev1.Rector" target="com.javaspring.corejava.odev2.Manageable" relationship="REALIZATION">
+      <point x="72.0" y="0.0" />
+      <point x="390.49048366377247" y="310.4897322106755" />
+      <point x="0.0" y="29.000000000000004" />
+    </edge>
+    <edge source="com.javaspring.corejava.odev1.Professor" target="com.javaspring.corejava.odev2.Advisable" relationship="REALIZATION">
+      <point x="-25.23313806709831" y="-41.38359935867959" />
+      <point x="-422.8460207612457" y="70.78609768451523" />
+      <point x="-423.481394804874" y="70.78609768451523" />
+      <point x="-16.722950597658382" y="29.0" />
+    </edge>
+    <edge source="com.javaspring.corejava.odev1.Rector" target="com.javaspring.corejava.odev1.AdministrativeStaff" relationship="GENERALIZATION">
+      <point x="0.0" y="-41.5" />
+      <point x="158.3458842553007" y="153.58105244816704" />
+      <point x="102.87847877170759" y="29.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Compact" zoom="1.0644567219152854" showDependencies="true" x="120.44723183391011" y="200.92733564013838" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
