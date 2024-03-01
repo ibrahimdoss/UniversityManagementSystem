@@ -1,6 +1,6 @@
-package com.javaspring.corejava.odev1;
+package com.javaspring.corejava.day1;
 
-import com.javaspring.corejava.odev2.Advisable;
+import com.javaspring.corejava.day2.Advisable;
 
 public class Professor extends Faculty implements Advisable {
 

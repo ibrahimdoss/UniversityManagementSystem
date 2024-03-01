@@ -1,4 +1,4 @@
-package com.javaspring.corejava.odev2;
+package com.javaspring.corejava.day2;
 
 public interface Researchable {
 

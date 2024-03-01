@@ -1,6 +1,6 @@
-package com.javaspring.corejava.odev1;
+package com.javaspring.corejava.day1;
 
-import com.javaspring.corejava.odev2.Manageable;
+import com.javaspring.corejava.day2.Manageable;
 
 public class Rector extends AdministrativeStaff implements Manageable {
 

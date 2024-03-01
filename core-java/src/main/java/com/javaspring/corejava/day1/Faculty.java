@@ -1,7 +1,7 @@
-package com.javaspring.corejava.odev1;
+package com.javaspring.corejava.day1;
 
-import com.javaspring.corejava.odev2.Researchable;
-import com.javaspring.corejava.odev2.Teachable;
+import com.javaspring.corejava.day2.Researchable;
+import com.javaspring.corejava.day2.Teachable;
 
 public class Faculty extends Staff implements Teachable, Researchable {
 

@@ -1,4 +1,4 @@
-package com.javaspring.corejava.odev1;
+package com.javaspring.corejava.day1;
 
 public class AdministrativeStaff extends Staff{
 
