@@ -1,2 +1,2 @@
-# UniversityManagementSystem
+# Core Java örneklerinin bulunduğu repository
  
