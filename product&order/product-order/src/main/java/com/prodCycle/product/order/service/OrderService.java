@@ -8,6 +8,7 @@ import com.prodCycle.product.order.repository.OrderRepository;
 import com.prodCycle.product.order.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -27,5 +28,10 @@ public class OrderService {
     public OrderDto getOrder(Long id){
         OrderEntity orderEntity = orderRepository.findById(id).orElseThrow();
         return orderMapper.orderEntityToOrderDto(orderEntity);
+    }
+
+    @Transactional
+    public void deleteOrder(Long id){
+        orderRepository.deleteById(id);
     }
 }

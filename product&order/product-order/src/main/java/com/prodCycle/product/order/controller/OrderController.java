@@ -22,4 +22,10 @@ public class OrderController {
     public ResponseEntity<OrderDto> getOrder(@RequestParam Long id) {
         return ResponseEntity.ok(orderService.getOrder(id));
     }
+
+    @DeleteMapping("/deleteOrder")
+    public ResponseEntity<Void> deleteOrder(@RequestParam Long id) {
+        orderService.deleteOrder(id);
+        return ResponseEntity.ok().build();
+    }
 }
