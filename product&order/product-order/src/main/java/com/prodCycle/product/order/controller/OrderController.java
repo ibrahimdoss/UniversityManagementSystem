@@ -26,6 +26,6 @@ public class OrderController {
     @DeleteMapping("/deleteOrder")
     public ResponseEntity<Void> deleteOrder(@RequestParam Long id) {
         orderService.deleteOrder(id);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
     }
 }
