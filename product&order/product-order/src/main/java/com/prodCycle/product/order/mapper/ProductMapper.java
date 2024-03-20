@@ -2,6 +2,7 @@ package com.prodCycle.product.order.mapper;
 
 import com.prodCycle.product.order.domain.ProductEntity;
 import com.prodCycle.product.order.domain.dto.ProductDto;
+import com.prodCycle.product.order.domain.dto.ProductResponseByCategoryDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
@@ -12,5 +13,8 @@ public interface ProductMapper {
 
     ProductDto productEntityToProductDto(ProductEntity product);
     ProductEntity productDtoToProductEntity(ProductDto productDto);
+
+    ProductResponseByCategoryDto productToProductResponseDtoByCategory(ProductEntity product);
+
 
 }

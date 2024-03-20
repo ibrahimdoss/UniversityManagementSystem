@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -30,4 +32,12 @@ public class ProductEntity {
 
     @Column(name = "price")
     private BigDecimal price;
+
+    private int numberOfProduct;
+
+    @OneToMany(mappedBy = "product")
+    private Set<OrderProductEntity> orderProductEntitySet = new HashSet<>();
+
+    private static final long serialVersionUID = 1L;
+
 }

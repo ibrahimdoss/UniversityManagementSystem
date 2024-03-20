@@ -1,14 +1,17 @@
 package com.prodCycle.product.order.service;
 
 import com.prodCycle.product.order.domain.OrderEntity;
-import com.prodCycle.product.order.domain.ProductEntity;
-import com.prodCycle.product.order.domain.dto.OrderDto;
+import com.prodCycle.product.order.domain.UserEntity;
+import com.prodCycle.product.order.domain.dto.OrderRequestDto;
 import com.prodCycle.product.order.mapper.OrderMapper;
 import com.prodCycle.product.order.repository.OrderRepository;
-import com.prodCycle.product.order.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -16,16 +19,29 @@ public class OrderService {
 
     private final OrderRepository orderRepository;
     private final OrderMapper orderMapper;
-    private final ProductRepository productRepository;
+    private final SmsService smsService;
+    private final UserService userService;
+    private final ProductOrderService productOrderService;
 
-    public OrderDto createOrder(OrderDto orderDto){
-        ProductEntity productEntity = productRepository.findById(orderDto.getProductId()).orElseThrow();
-        OrderEntity orderEntity = new OrderEntity(productEntity);
-        orderEntity = orderRepository.save(orderEntity);
+    @Transactional
+    public OrderRequestDto createOrder(OrderRequestDto orderRequestDto){
+        List<Long> productIdList = orderRequestDto.getProductIdList();
+        final String orderDescription = orderRequestDto.getOrderDescription();
+        final Long userId = orderRequestDto.getUserId();
+
+        OrderEntity orderEntity = new OrderEntity();
+        orderEntity.setOrderDescription(orderDescription);
+        orderEntity.setOrderNumber(UUID.randomUUID().toString());
+        Optional<UserEntity> userById = userService.findUserById(userId);
+        UserEntity userEntity = userById.get();
+
+        productOrderService.saveOrderProduct(productIdList, orderEntity);
+
+        smsService.sendSmsToUser(orderEntity, userEntity);
         return orderMapper.orderEntityToOrderDto(orderEntity);
     }
 
-    public OrderDto getOrder(Long id){
+    public OrderRequestDto getOrder(Long id){
         OrderEntity orderEntity = orderRepository.findById(id).orElseThrow();
         return orderMapper.orderEntityToOrderDto(orderEntity);
     }

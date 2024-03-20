@@ -4,17 +4,29 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 @Getter
 @Setter
 @Entity
 @Table(name = "orders")
-public class OrderEntity {
+public class OrderEntity extends BaseEntity implements Serializable {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private static final long serialVersionUID = 1L;
+
+    @Column
+    private String orderNumber;
+
+    @Column(name = "orderDate")
+    private Date orderDate;
+
+    @Column(name = "orderDescription")
+    private String orderDescription;
+
+    @Column(name = "price")
+    private Double totalAmount;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id")
@@ -22,6 +34,9 @@ public class OrderEntity {
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OrderProductEntity> orderProductEntityList;
+
+    @ManyToOne
+    private UserEntity userEntity;
 
     public OrderEntity(ProductEntity product) {
         this.product = product;

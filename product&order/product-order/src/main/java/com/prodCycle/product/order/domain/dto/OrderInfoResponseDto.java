@@ -5,6 +5,8 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class OrderDto {
-    private Long productId;
+public class OrderInfoResponseDto {
+
+    private String orderNumber;
+    private Double totalAmount;
 }
