@@ -11,4 +11,5 @@ public class UserSaveRequestDto {
     private String lastName;
     private String email;
     private String phoneNumber;
+    private Boolean isActive;
 }

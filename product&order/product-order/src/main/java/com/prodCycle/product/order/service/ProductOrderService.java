@@ -3,6 +3,7 @@ package com.prodCycle.product.order.service;
 import com.prodCycle.product.order.domain.OrderEntity;
 import com.prodCycle.product.order.domain.OrderProductEntity;
 import com.prodCycle.product.order.domain.ProductEntity;
+import com.prodCycle.product.order.exception.BusinessException;
 import com.prodCycle.product.order.mapper.ProductMapper;
 import com.prodCycle.product.order.repository.OrderProductRepository;
 import com.prodCycle.product.order.repository.OrderRepository;
@@ -46,18 +47,27 @@ public class ProductOrderService {
 
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
-    public void saveOrderProduct(List<Long> productIdList, OrderEntity orderEntity){
+    public void saveOrderProduct(List<Long> productIdList, OrderEntity orderEntity) {
         productIdList.stream()
-                .map(productRepository::findById)
+                .map(productId -> productRepository.findById(productId)
+                        .orElseThrow(() -> new BusinessException("Product not found for ID: " + productId)))
                 .forEach(productEntity -> {
-                    OrderProductEntity orderProductEntity = new OrderProductEntity();
-                    orderProductEntity.setOrder(orderEntity);
-                    orderProductEntity.setProduct(productEntity.get());
-                    int numberOfProduct = productEntity.get().getNumberOfProduct();
-                    productEntity.get().setNumberOfProduct(--numberOfProduct);
-                    orderProductEntityRepository.save(orderProductEntity);
-                    productRepository.save(productEntity.get());
-                });
+                    if (productEntity.getNumberOfProduct() <= 0) {
+                        throw new BusinessException("Product is out of stock for ID: " + productEntity.getId());
+                    }
 
+                    try {
+                        OrderProductEntity orderProductEntity = new OrderProductEntity();
+                        orderProductEntity.setOrder(orderEntity);
+                        orderProductEntity.setProduct(productEntity);
+                        int numberOfProduct = productEntity.getNumberOfProduct();
+                        productEntity.setNumberOfProduct(--numberOfProduct);
+
+                        orderProductEntityRepository.save(orderProductEntity);
+                        productRepository.save(productEntity);
+                    } catch (Exception e) {
+                        throw new BusinessException("Error processing order for product ID: " + productEntity.getId());
+                    }
+                });
     }
 }

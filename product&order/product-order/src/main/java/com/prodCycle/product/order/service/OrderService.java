@@ -3,6 +3,7 @@ package com.prodCycle.product.order.service;
 import com.prodCycle.product.order.domain.OrderEntity;
 import com.prodCycle.product.order.domain.UserEntity;
 import com.prodCycle.product.order.domain.dto.OrderRequestDto;
+import com.prodCycle.product.order.exception.UserNotValidException;
 import com.prodCycle.product.order.mapper.OrderMapper;
 import com.prodCycle.product.order.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
@@ -34,6 +35,9 @@ public class OrderService {
         orderEntity.setOrderNumber(UUID.randomUUID().toString());
         Optional<UserEntity> userById = userService.findUserById(userId);
         UserEntity userEntity = userById.get();
+        if (!userEntity.getIsActive()){
+            throw new UserNotValidException(userEntity.getId());
+        }
 
         productOrderService.saveOrderProduct(productIdList, orderEntity);
 
