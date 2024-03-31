@@ -12,7 +12,7 @@ import java.util.Set;
 @Getter
 @Setter
 @Table(name = "products")
-public class ProductEntity {
+public class ProductEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,7 +33,12 @@ public class ProductEntity {
     @Column(name = "price")
     private BigDecimal price;
 
+    @Column(name = "numberOfProduct")
     private int numberOfProduct;
+
+    @Column(name = "weight")
+    private BigDecimal weight;
+
 
     @OneToMany(mappedBy = "product")
     private Set<OrderProductEntity> orderProductEntitySet = new HashSet<>();

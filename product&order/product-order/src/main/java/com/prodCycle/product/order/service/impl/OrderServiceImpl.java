@@ -7,15 +7,17 @@ import com.prodCycle.product.order.domain.dto.OrderRequestDto;
 import com.prodCycle.product.order.mapper.OrderMapper;
 import com.prodCycle.product.order.repository.OrderRepository;
 import com.prodCycle.product.order.service.OrderService;
-import com.prodCycle.product.order.service.ProductService;
+import com.prodCycle.product.order.service.ShippingCostStrategy;
 import com.prodCycle.product.order.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+
 
 @Service
 @RequiredArgsConstructor
@@ -27,6 +29,10 @@ public class OrderServiceImpl implements OrderService {
     private final UserService userService;
     private final OrderProductService orderProductService;
 
+    private static final BigDecimal BASE_SHIPPING_COST = new BigDecimal("5.00");
+
+
+
     @Override
     @Transactional
     public void processOrder(OrderRequestDto orderRequestDto){
@@ -34,6 +40,20 @@ public class OrderServiceImpl implements OrderService {
         OrderEntity order = createOrder(orderRequestDto, user);
 
         processOrderItems(orderRequestDto.getProductIdList(), order);
+
+        ShippingCostStrategy shippingCostStrategy;
+        BigDecimal totalWeight = calculateTotalWeight(order);
+        if (totalWeight.compareTo(new BigDecimal(String.valueOf(BASE_SHIPPING_COST))) > 0) {
+            shippingCostStrategy = new WeightBasedShippingCostStrategy();
+        } else {
+            shippingCostStrategy = new FixedShippingCostStrategy();
+        }
+
+        BigDecimal shippingCost = shippingCostStrategy.calculateShippingCost(order);
+        order.setShippingCost(shippingCost);
+
+        orderRepository.save(order);
+
         notifyUser(order, user);
     }
 
@@ -74,5 +94,13 @@ public class OrderServiceImpl implements OrderService {
     private void notifyUser(OrderEntity order, UserEntity user) {
         smsService.sendSmsToUser(order, user);
     }
+
+    public BigDecimal calculateTotalWeight(OrderEntity order) {
+        BigDecimal totalWeight = BigDecimal.ZERO;
+            ProductEntity product = order.getProduct();
+            totalWeight = totalWeight.add(product.getWeight());
+        return totalWeight;
+    }
+
 
 }

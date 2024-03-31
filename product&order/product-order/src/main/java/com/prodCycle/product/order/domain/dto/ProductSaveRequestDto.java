@@ -21,4 +21,5 @@ public class ProductSaveRequestDto {
 
     private int numberOfProduct;
 
+    private BigDecimal weight;
 }

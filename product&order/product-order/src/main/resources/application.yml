@@ -1,6 +1,6 @@
 spring:
   jpa:
-    open-in-view: false # bu özellik false olunca hibernate session aç?p kapat?yor. true olunca aç?p kapatm?yor. faydas? ise performans art???.
+    open-in-view:
     show-sql: true
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     properties:

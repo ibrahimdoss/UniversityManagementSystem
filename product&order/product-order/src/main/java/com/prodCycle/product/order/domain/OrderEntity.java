@@ -29,11 +29,14 @@ public class OrderEntity extends BaseEntity implements Serializable {
     @Column(name = "price")
     private BigDecimal totalAmount;
 
+    @Column(name = "shippingCost")
+    private BigDecimal shippingCost;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id")
     private ProductEntity product;
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = false)
     private List<OrderProductEntity> orderProductEntityList;
 
     @ManyToOne

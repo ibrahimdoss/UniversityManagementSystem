@@ -12,4 +12,5 @@ public class UserSaveRequestDto {
     private String email;
     private String phoneNumber;
     private Boolean isActive;
+    private Boolean isPremium;
 }

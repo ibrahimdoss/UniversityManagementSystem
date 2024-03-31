@@ -3,7 +3,6 @@ package com.prodCycle.product.order.service.impl;
 import com.prodCycle.product.order.domain.OrderEntity;
 import com.prodCycle.product.order.domain.OrderProductEntity;
 import com.prodCycle.product.order.domain.ProductEntity;
-import com.prodCycle.product.order.domain.dto.ProductDto;
 import com.prodCycle.product.order.exception.BusinessException;
 import com.prodCycle.product.order.repository.OrderProductRepository;
 import com.prodCycle.product.order.service.ProductService;
@@ -33,7 +32,7 @@ public class OrderProductService {
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     public void saveOrderProduct(List<Long> productIdList, OrderEntity orderEntity) {
-        productIdList.forEach(productId -> processProduct(productId, orderEntity));
+         productIdList.forEach(productId -> processProduct(productId, orderEntity));
     }
 
     private void processProduct(Long productId, OrderEntity orderEntity) {

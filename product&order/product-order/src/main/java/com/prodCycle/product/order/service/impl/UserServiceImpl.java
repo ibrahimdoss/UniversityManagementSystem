@@ -2,25 +2,27 @@ package com.prodCycle.product.order.service.impl;
 
 import com.prodCycle.product.order.domain.UserEntity;
 import com.prodCycle.product.order.domain.dto.UserSaveRequestDto;
+import com.prodCycle .product.order.domain.dto.UserUpdateRequestDto;
+import com.prodCycle.product.order.domain.dto.UserUpdateResponseDto;
 import com.prodCycle.product.order.exception.BusinessException;
 import com.prodCycle.product.order.mapper.UserMapper;
 import com.prodCycle.product.order.repository.UserRepository;
 import com.prodCycle.product.order.service.UserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final UserMapper userMapper;
+    private final SmsService smsService;
 
-    public UserServiceImpl(UserRepository userRepository, UserMapper userMapper) {
-        this.userRepository = userRepository;
-        this.userMapper = userMapper;
-    }
 
     @Override
     public void save(UserSaveRequestDto userSaveRequestDto) {
@@ -39,5 +41,21 @@ public class UserServiceImpl implements UserService {
     @Override
     public Optional<UserEntity> findUserById(Long id){
         return userRepository.findById(id);
+    }
+
+    @Transactional
+    @Override
+    public UserUpdateResponseDto updateUser(Long id, UserUpdateRequestDto userUpdateDto) {
+        UserEntity existingUser = userRepository.findById(id)
+                .orElseThrow(() -> new BusinessException("User not found with id: " + id));
+
+        userMapper.updateUserFromDto(userUpdateDto, existingUser);
+
+        UserEntity updatedUser = userRepository.save(existingUser);
+
+        smsService.sendSmsToUpdateUser(existingUser);
+
+        return userMapper.userEntityToUserUpdateResponseDto(updatedUser);
+
     }
 }
