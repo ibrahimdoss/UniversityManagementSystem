@@ -5,9 +5,10 @@ import com.prodCycle.product.order.domain.UserEntity;
 import com.prodCycle.product.order.domain.dto.OrderRequestDto;
 import com.prodCycle.product.order.mapper.OrderMapper;
 import com.prodCycle.product.order.service.OrderService;
-import com.prodCycle.product.order.service.ProductOrderService;
-import com.prodCycle.product.order.service.SmsService;
-import com.prodCycle.product.order.service.UserService;
+import com.prodCycle.product.order.service.impl.OrderServiceImpl;
+import com.prodCycle.product.order.service.impl.OrderProductService;
+import com.prodCycle.product.order.service.impl.SmsService;
+import com.prodCycle.product.order.service.impl.UserServiceImpl;
 import org.aspectj.lang.annotation.Before;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -23,22 +24,19 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class OrderServiceTest {
+public class OrderServiceImplTest {
 
     @Mock
-    private UserService userService;
+    private UserServiceImpl userServiceImpl;
 
     @Mock
-    private ProductOrderService productOrderService;
+    private OrderProductService orderProductService;
 
     @Mock
     private SmsService smsService;
 
-    @Mock
-    private OrderMapper orderMapper;
-
     @InjectMocks
-    private OrderService orderService;
+    private OrderServiceImpl orderService;
 
     @Before("setUp")
     public void setUp() {
@@ -57,15 +55,14 @@ public class OrderServiceTest {
         requestDto.setProductIdList(Arrays.asList(1L, 2L));
         requestDto.setOrderDescription("New Order");
 
-        when(userService.findUserById(userId)).thenReturn(Optional.of(activeUser));
-        when(orderMapper.orderEntityToOrderDto(any(OrderEntity.class))).thenReturn(requestDto);
+        when(userServiceImpl.findUserById(userId)).thenReturn(Optional.of(activeUser));
 
         // When
-        OrderRequestDto resultDto = orderService.createOrder(requestDto);
+        orderService.processOrder(requestDto);
 
         // Then
-        verify(productOrderService, times(1)).saveOrderProduct(anyList(), any(OrderEntity.class));
+        verify(orderProductService, times(1)).saveOrderProduct(anyList(), any(OrderEntity.class));
         verify(smsService, times(1)).sendSmsToUser(any(OrderEntity.class), eq(activeUser));
-        assertEquals(requestDto, resultDto);
     }
+
 }

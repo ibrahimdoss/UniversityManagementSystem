@@ -3,6 +3,8 @@ package com.prodCycle.product.order.domain.dto;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.math.BigDecimal;
+
 @Getter
 @Setter
 public class ProductSaveRequestDto {
@@ -15,5 +17,8 @@ public class ProductSaveRequestDto {
 
     private String description;
 
-    private Double price;
+    private BigDecimal price;
+
+    private int numberOfProduct;
+
 }

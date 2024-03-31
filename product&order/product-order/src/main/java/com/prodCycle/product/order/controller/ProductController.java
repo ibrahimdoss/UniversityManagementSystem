@@ -2,6 +2,7 @@ package com.prodCycle.product.order.controller;
 
 import com.prodCycle.product.order.domain.dto.ProductDto;
 import com.prodCycle.product.order.domain.dto.ProductResponseByCategoryDto;
+import com.prodCycle.product.order.domain.dto.ProductSaveRequestDto;
 import com.prodCycle.product.order.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -18,8 +19,8 @@ public class ProductController {
     private final ProductService productService;
 
     @PostMapping("/create")
-    public ResponseEntity<ProductDto> createProduct(@RequestBody ProductDto productDto) {
-        return ResponseEntity.ok(productService.createProduct(productDto));
+    public void createProduct(@RequestBody ProductSaveRequestDto productDto) {
+        productService.createProduct(productDto);
     }
 
     @DeleteMapping
